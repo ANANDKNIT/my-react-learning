@@ -10,7 +10,7 @@ class App extends Component {
     ]
   };
 
-  switchNameHandler = (newValue) => {
+  switchNameHandler = newValue => {
     console.log("was clicked");
     // this.state.persons[0].name="ANAND KUMAR" //Don't Do This React will not recognise it
     this.setState({
@@ -21,17 +21,34 @@ class App extends Component {
       ]
     });
   };
+
+  //two way binding 
+
+  nameChangeHandler = (event) => {
+    this.setState({
+      persons: [
+        { name: "Anand", age: 24 },
+        { name: event.target.value, age: 33 },
+        { name: "Test", age: 12 }
+      ]
+    });
+
+  }
+
   render() {
     return (
       <div className="App">
         <h1>hi this is my first app </h1>
-        <button 
-        onClick={this.switchNameHandler.bind(this, 'Anand!!')}
-        >Switch Name</button>
+        <button onClick={this.switchNameHandler.bind(this, "Anand!!")}>
+          Switch Name
+        </button>
         <Person
           name={this.state.persons[0].name}
           age={this.state.persons[0].age}
-          click={this.switchNameHandler.bind(this, 'Change Anand!!')}
+          // don't use annonyms inline function (it is in efficient) 
+          //because React can re-render certain things too often 
+          click={() => this.switchNameHandler("Change Anand!!")}
+          changed={this.nameChangeHandler}
         >
           my hobby is playing Chess
         </Person>
@@ -39,11 +56,15 @@ class App extends Component {
           name={this.state.persons[1].name}
           age={this.state.persons[1].age}
           click={this.switchNameHandler}
+          changed={this.nameChangeHandler}
+
         />
         <Person
           name={this.state.persons[2].name}
           age={this.state.persons[2].age}
           click={this.switchNameHandler}
+          changed={this.nameChangeHandler}
+
         />
       </div>
     );
