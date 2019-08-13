@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import "./App.css";
 import Person from "./Person/Person";
+
+const style = {
+  backgroundColor: "white",
+  font: "inherit",
+  border: "1px solid blue",
+  padding: "8px",
+};
 class App extends Component {
   state = {
     persons: [
@@ -22,9 +29,9 @@ class App extends Component {
     });
   };
 
-  //two way binding 
+  //two way binding
 
-  nameChangeHandler = (event) => {
+  nameChangeHandler = event => {
     this.setState({
       persons: [
         { name: "Anand", age: 24 },
@@ -32,21 +39,23 @@ class App extends Component {
         { name: "Test", age: 12 }
       ]
     });
-
-  }
+  };
 
   render() {
     return (
       <div className="App">
         <h1>hi this is my first app </h1>
-        <button onClick={this.switchNameHandler.bind(this, "Anand!!")}>
+        <button
+          onClick={this.switchNameHandler.bind(this, "Anand!!")}
+          style={style}
+        >
           Switch Name
         </button>
         <Person
           name={this.state.persons[0].name}
           age={this.state.persons[0].age}
-          // don't use annonyms inline function (it is in efficient) 
-          //because React can re-render certain things too often 
+          // don't use annonyms inline function (it is in efficient)
+          //because React can re-render certain things too often
           click={() => this.switchNameHandler("Change Anand!!")}
           changed={this.nameChangeHandler}
         >
@@ -57,14 +66,12 @@ class App extends Component {
           age={this.state.persons[1].age}
           click={this.switchNameHandler}
           changed={this.nameChangeHandler}
-
         />
         <Person
           name={this.state.persons[2].name}
           age={this.state.persons[2].age}
           click={this.switchNameHandler}
           changed={this.nameChangeHandler}
-
         />
       </div>
     );
