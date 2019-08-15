@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Radium,{StyleRoot} from 'radium';
 import "./App.css";
 import Person from "./Person/Person";
 
@@ -30,7 +29,7 @@ class App extends Component {
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
     });
-    console.log(personIndex,'from changwed handler');
+    console.log(personIndex, "from changwed handler");
     // const person={...this.state.persons[personIndex]};
     const person = Object.assign({}, this.state.persons[personIndex]);
     person.name = event.target.value;
@@ -58,16 +57,16 @@ class App extends Component {
     let person = null;
     const style = {
       backgroundColor: "green",
-      color:"white",
+      color: "white",
       font: "inherit",
       border: "1px solid blue",
       padding: "8px",
       ":hover": {
-         backgroundColor:"lightgreen",
-         color: "black"
+        backgroundColor: "lightgreen",
+        color: "black"
       }
     };
-    
+
     if (this.state.showPersons) {
       person = (
         <div>
@@ -83,40 +82,30 @@ class App extends Component {
                 changed={event => this.nameChangeHandler(event, person.id)}
               />
             );
-          })
-          }
+          })}
         </div>
       );
-      style["backgroundColor"] ="red";
-      style[":hover"]={
-        backgroundColor:"salmon",
-        color: "black"
-      }
+      style["backgroundColor"] = "red";
     }
-    let classes=[];
-if(this.state.persons.length<=2) {
-  classes.push('red'); // classes = [red]
-}
-if(this.state.persons.length<=1) {
-  classes.push('bold'); //classes =[red, bold]
-}
+    let classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push("red"); // classes = [red]
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push("bold"); //classes =[red, bold]
+    }
 
-// if(this.state.persons.length<=1) {
-//   classes.push('bold');
-// }
     return (
-      <StyleRoot>
       <div className="App">
         <h1>H i this is my first app </h1>
-        <p className={classes.join(' ') }>This is really working</p>
+        <p className={classes.join(" ")}>This is really working</p>
         <button onClick={this.togglePersonHandler} style={style}>
-          Toggle Person 
+          Toggle Person
         </button>
         {person}
       </div>
-      </StyleRoot>
     );
   }
 }
 
-export default Radium(App);
+export default App;
