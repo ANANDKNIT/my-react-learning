@@ -2,11 +2,6 @@ import React from "react";
 import classes from "./Person.css";
 
 const person = props => {
-
-  const randomNuber = Math.random();
-  if(randomNuber>0.7) {
-    throw new Error('Something went wrong');
-  }
   return (
     <div className={classes.Person}>
       <h3 onClick={props.click}>
