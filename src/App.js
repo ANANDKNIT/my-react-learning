@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Radium from 'radium';
+import Radium,{StyleRoot} from 'radium';
 import "./App.css";
 import Person from "./Person/Person";
 
@@ -105,6 +105,7 @@ if(this.state.persons.length<=1) {
 //   classes.push('bold');
 // }
     return (
+      <StyleRoot>
       <div className="App">
         <h1>H i this is my first app </h1>
         <p className={classes.join(' ') }>This is really working</p>
@@ -113,6 +114,7 @@ if(this.state.persons.length<=1) {
         </button>
         {person}
       </div>
+      </StyleRoot>
     );
   }
 }
