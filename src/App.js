@@ -2,12 +2,6 @@ import React, { Component } from "react";
 import "./App.css";
 import Person from "./Person/Person";
 
-const style = {
-  backgroundColor: "white",
-  font: "inherit",
-  border: "1px solid blue",
-  padding: "8px"
-};
 class App extends Component {
   state = {
     persons: [
@@ -61,6 +55,14 @@ class App extends Component {
   };
   render() {
     let person = null;
+    const style = {
+      backgroundColor: "green",
+      color:"white",
+      font: "inherit",
+      border: "1px solid blue",
+      padding: "8px"
+    };
+    
     if (this.state.showPersons) {
       person = (
         <div>
@@ -76,10 +78,13 @@ class App extends Component {
                 changed={event => this.nameChangeHandler(event, person.id)}
               />
             );
-          })}
+          })
+          }
         </div>
       );
+      style.backgroundColor ="red";
     }
+
     return (
       <div className="App">
         <h1>hi this is my first app </h1>
