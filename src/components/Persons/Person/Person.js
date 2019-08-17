@@ -1,19 +1,34 @@
-import React from "react";
+import React, { Component } from "react";
 import classes from "./Person.css";
 
-const person = props => {
-  return (
-    <div className={classes.Person}>
-      <h3 onClick={props.click}>
-        I am a Person
-        {` ${props.name}`} and
-      </h3>
-      <h5> I am {`${props.age}`} years Old</h5>
-      {props.children}
-      <br />
-      <input type="text" onChange={props.changed} value={props.name} />
-    </div>
-  );
-};
+class Person extends Component {
 
-export default person;
+  componentDidMount() {
+    if (this.props.position === 0) {
+      this.getFocus.focus();
+    }
+  }
+  render() {
+    return (
+      <div className={classes.Person}>
+        <h3 onClick={this.props.click}>
+          I am a Person
+          {` ${this.props.name}`} and
+        </h3>
+        <h5> I am {`${this.props.age}`} years Old</h5>
+        {this.props.children}
+        <br />
+        <input
+          ref={inp => {
+            this.getFocus = inp;
+          }}
+          type="text"
+          onChange={this.props.changed}
+          value={this.props.name}
+        />
+      </div>
+    );
+  }
+}
+
+export default Person;
