@@ -2,6 +2,7 @@ import React from "react";
 import Person from "./Person/Person";
 import Aux from "../../hoc/Aux";
 import withClass from "../../hoc/WithClass";
+import PropTypes from "prop-types";
 
 class Persons extends React.PureComponent {
   constructor(props) {
@@ -25,18 +26,17 @@ class Persons extends React.PureComponent {
     //get upcomming props initialize state with props
     console.log(nextProps, "[Persons.js] componentWillReceiveProps");
   }
-  shouldComponentUpdate(nextProps, nextState) {
-    // it can cancel updating the dom
-    console.log(nextProps, nextState, "[Persons.js] shouldComponentUpdate");
-    
-    return true;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   // it can cancel updating the dom
+  //   console.log(nextProps, nextState, "[Persons.js] shouldComponentUpdate");
+  //   return true;
+  // }
   componentWillUpdate(nextProps, nextState) {
     console.log(nextProps, nextState, "[Persons.js] componentWillUpdate");
-    return(nextProps.persons===this.props.persons)
+    return nextProps.persons === this.props.persons;
   }
   componentDidUpdate() {
-      console.log("[Persons.js] componentDidUpdate");
+    console.log("[Persons.js] componentDidUpdate");
   }
 
   render() {
@@ -58,4 +58,12 @@ class Persons extends React.PureComponent {
     );
   }
 }
+
+Persons.propTypes = {
+  clicked: PropTypes.func,
+  name: PropTypes.string,
+  age: PropTypes.number,
+  changed: PropTypes.func
+};
+
 export default withClass(Persons);
