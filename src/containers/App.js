@@ -4,13 +4,11 @@ import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Cockpit/Cockpit";
 import Aux from "../hoc/Aux";
 import withClass from "../hoc/WithClass";
+
+export const AuthContext = React.createContext();
 class App extends PureComponent {
   constructor(props) {
-    // console.log("[App] Constructore",props)
-
-    super();
-    //this is old style of using state in constructor
-    // because in old style we don't have state initialization outside of constructure
+    super(props);
     this.state = {
       persons: [
         { id: 1, name: "Anand", age: 24 },
@@ -18,32 +16,9 @@ class App extends PureComponent {
         { id: 3, name: "Test", age: 30 }
       ],
       showPersons: false,
-      toggleCounter: 0
+      toggleCounter: 0,
+      authenticated: false
     };
-  }
-
-  componentDidMount() {
-    console.log("[App] componentDidMount");
-  }
-
-  componentWillMount() {
-    console.log("[App] componentWillMount");
-  }
-
-  componentWillUnmount() {
-    console.log("[App] componentWillUnmount");
-  }
-
-  componentWillReceiveProps(nextProps) {
-    //get upcomming props initialize state with props
-    console.log(nextProps, "[App.js] componentWillReceiveProps");
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    console.log(nextProps, nextState, "[Persons.js] componentWillUpdate");
-  }
-  componentDidUpdate() {
-    console.log("[Persons.js] componentDidUpdate");
   }
 
   nameChangeHandler = (event, id) => {
@@ -60,11 +35,12 @@ class App extends PureComponent {
     });
   };
 
+  loginHandler = () => {
+  this.setState({authenticated:true});  
+  }
+
   togglePersonHandler = () => {
     const oldState = this.state.showPersons;
-    // we should use this approach if our state depends upon old state
-    // because setting the state is asynchronus
-    // if you try to get the latest state using this.state.value than it can have unpredicatable result
     this.setState((prevState, props) => {
       return {
         showPersons: !oldState,
@@ -103,7 +79,10 @@ class App extends PureComponent {
           toggle={this.togglePersonHandler}
           showPersons={this.state.showPersons}
         />
-        {person}
+        <AuthContext.Provider value={this.state.authenticated}>
+          {person}
+        </AuthContext.Provider>
+        <button onClick={this.loginHandler}>Login</button>
       </Aux>
     );
   }
