@@ -6,7 +6,7 @@ import Aux from "../hoc/Aux";
 import withClass from "../hoc/WithClass";
 class App extends PureComponent {
   constructor(props) {
-    console.log("[App] Constructore",props)
+    // console.log("[App] Constructore",props)
 
     super();
     //this is old style of using state in constructor
@@ -17,7 +17,8 @@ class App extends PureComponent {
         { id: 2, name: "Manu", age: 26 },
         { id: 3, name: "Test", age: 30 }
       ],
-      showPersons: false
+      showPersons: false,
+      toggleCounter: 0
     };
   }
 
@@ -40,7 +41,7 @@ class App extends PureComponent {
 
   // shouldComponentUpdate(nextProps, nextState) {
   //   // it can cancel updating the dom
-  // // it  removed because class extends PureComponents 
+  // // it  removed because class extends PureComponents
   //   console.log(nextProps, nextState, "[App.js] shouldComponentUpdate");
   //   return (nextState.persons===this.state.persons);
   // }
@@ -49,9 +50,8 @@ class App extends PureComponent {
     console.log(nextProps, nextState, "[Persons.js] componentWillUpdate");
   }
   componentDidUpdate() {
-      console.log("[Persons.js] componentDidUpdate");
+    console.log("[Persons.js] componentDidUpdate");
   }
-
 
   nameChangeHandler = (event, id) => {
     console.log(id, event.target.value, "name change handler");
@@ -69,7 +69,12 @@ class App extends PureComponent {
 
   togglePersonHandler = () => {
     const oldState = this.state.showPersons;
-    this.setState({ showPersons: !oldState });
+    this.setState((prevState, props) => {
+      return {
+        showPersons: !oldState,
+        toggleCounter: prevState.toggleCounter + 1
+      };
+    });
   };
 
   deletePersonHandler = personIndex => {
@@ -82,7 +87,7 @@ class App extends PureComponent {
 
   render() {
     let person = null;
-    console.log("[App] render method")
+    console.log("[App] render method");
 
     if (this.state.showPersons) {
       person = (
@@ -96,7 +101,6 @@ class App extends PureComponent {
 
     return (
       <Aux>
-        <button onClick={() =>this.setState({showPersons:true})}>Show Person</button>
         <Cockpit
           appTitle={this.props.appTitle}
           persons={this.state.persons}
@@ -109,4 +113,4 @@ class App extends PureComponent {
   }
 }
 
-export default withClass(App,App);
+export default withClass(App, classes.App);

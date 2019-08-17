@@ -1,5 +1,7 @@
 import React from "react";
 import Person from "./Person/Person";
+import Aux from "../../hoc/Aux";
+import withClass from "../../hoc/WithClass";
 
 class Persons extends React.PureComponent {
   constructor(props) {
@@ -40,7 +42,7 @@ class Persons extends React.PureComponent {
   render() {
     console.log("[Prsons.js] inside render");
     return (
-      <React.Fragment>
+      <Aux>
         {this.props.persons.map((person, index) => {
           return (
             <Person
@@ -52,8 +54,8 @@ class Persons extends React.PureComponent {
             />
           );
         })}
-      </React.Fragment>
+      </Aux>
     );
   }
 }
-export default Persons;
+export default withClass(Persons);
