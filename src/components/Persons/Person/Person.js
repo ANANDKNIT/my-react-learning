@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import classes from "./Person.css";
 
 class Person extends Component {
-
+  constructor(props) {
+    super(props);
+    this.inputRef = React.createRef();
+  }
   componentDidMount() {
     if (this.props.position === 0) {
-      this.getFocus.focus();
+      this.inputRef.current.focus();
     }
   }
   render() {
@@ -19,9 +22,7 @@ class Person extends Component {
         {this.props.children}
         <br />
         <input
-          ref={inp => {
-            this.getFocus = inp;
-          }}
+          ref={this.inputRef}
           type="text"
           onChange={this.props.changed}
           value={this.props.name}
