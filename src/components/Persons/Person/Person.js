@@ -1,19 +1,25 @@
 import React, { Component } from "react";
 import classes from "./Person.css";
+import withClass from "../../../hoc/WithClass"
+import Aux from "../../../hoc/Aux"
 
 class Person extends Component {
   constructor(props) {
     super(props);
     this.inputRef = React.createRef();
   }
+
   componentDidMount() {
-    if (this.props.position === 0) {
-      this.inputRef.current.focus();
-    }
+    console.log("componentDidMount");
   }
+
+  focus() {
+      this.inputRef.current.focus();
+  }
+
   render() {
     return (
-      <div className={classes.Person}>
+      <Aux>
         <h3 onClick={this.props.click}>
           I am a Person
           {` ${this.props.name}`} and
@@ -27,9 +33,9 @@ class Person extends Component {
           onChange={this.props.changed}
           value={this.props.name}
         />
-      </div>
+      </Aux>
     );
   }
 }
 
-export default Person;
+export default withClass(Person,classes.Person);

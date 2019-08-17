@@ -7,15 +7,16 @@ import PropTypes from "prop-types";
 class Persons extends React.PureComponent {
   constructor(props) {
     console.log("[Persons] Constructore", props);
-    super();
-  }
-
-  componentDidMount() {
-    console.log("[Persons] componentDidMount");
+    super(props);
+    this.lastPersonRef = React.createRef();
   }
 
   componentWillMount() {
     console.log("[Persons] componentWillMount");
+  }
+  componentDidMount() {
+    console.log("[Persons] componentDidMount");
+    this.lastPersonRef.current.focus();
   }
 
   componentWillUnmount() {
@@ -46,6 +47,7 @@ class Persons extends React.PureComponent {
         {this.props.persons.map((person, index) => {
           return (
             <Person
+              ref={this.lastPersonRef}
               key={person.id}
               name={person.name}
               position={index}
