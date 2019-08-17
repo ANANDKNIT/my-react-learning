@@ -39,13 +39,6 @@ class App extends PureComponent {
     console.log(nextProps, "[App.js] componentWillReceiveProps");
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   // it can cancel updating the dom
-  // // it  removed because class extends PureComponents
-  //   console.log(nextProps, nextState, "[App.js] shouldComponentUpdate");
-  //   return (nextState.persons===this.state.persons);
-  // }
-
   componentWillUpdate(nextProps, nextState) {
     console.log(nextProps, nextState, "[Persons.js] componentWillUpdate");
   }
@@ -69,6 +62,9 @@ class App extends PureComponent {
 
   togglePersonHandler = () => {
     const oldState = this.state.showPersons;
+    // we should use this approach if our state depends upon old state
+    // because setting the state is asynchronus
+    // if you try to get the latest state using this.state.value than it can have unpredicatable result
     this.setState((prevState, props) => {
       return {
         showPersons: !oldState,
