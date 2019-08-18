@@ -26,5 +26,5 @@ const Cockpit = props => {
     </div>
   );
 };
-
-export default Cockpit;
+// its similar to PureComponent and to a way to implement it in functional componet
+export default React.memo(Cockpit);
