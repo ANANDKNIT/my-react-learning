@@ -1,0 +1,16 @@
+<p><strong>Don't skip this lecture - and keep it open in a separate browser tab when you go through the next lecture - sorry for the small inconvenience at this point!</strong></p><p>In the next lecture, we'll use a styling solution named "CSS modules". I'll explain what it is and how it works over the next lectures.</p><p>The way we unlock it changed a little bit though.</p><p>In the next lecture, we'll eject from the project created with create-react-app (I'll show how that is done in the next lecture and that process will be exactly the same).</p><p>We'll then replace some code in a newly added webpack config file (it'll be available after ejecting).</p><p>In the video, I'll look for an entry that starts like this (in the <code>webpack.config.js</code> file):</p><pre class="prettyprint linenums">{
+  test: /\.css$/,
+  ...
+}</pre><p>and I then edit this entry.</p><p>This entry now looks slightly different. You'll have to find the following part in your <code>webpack.config.js</code> file:</p><pre class="prettyprint linenums">{
+  test: cssRegex,
+  exclude: cssModuleRegex,
+  ...
+}</pre><p>and then edit that entry.</p><p>Finally, it should look like this: </p><pre class="prettyprint linenums">{
+  test: cssRegex,
+  exclude: cssModuleRegex,
+  use: getStyleLoaders({
+      importLoaders: 1,
+      modules: true,
+      localIdentName: '[name]__[local]__[hash:base64:5]'
+  }),
+}</pre><p>You can ignore me editing the <code>webpack.config.prod.js</code> file - with the latest version of create-react-app, ejecting only gives you <strong>ONE</strong> webpack config file (which you edit as described above).</p><p><strong>---</strong></p><p>Alternatively, you can now also use CSS modules without ejecting (you still can though, it won't be a problem). In a non-ejected project created with create-react-app, you can use CSS modules as described here: <a href="https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet" rel="noopener noreferrer" target="_blank">https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet</a></p>
